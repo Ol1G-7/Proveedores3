@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Login - Sistema de Gestión</title>
+        <h:outputStylesheet library="css" name="login.css"/>
+    </h:head>
+    <h:body>
+        <div class="login-container">
+            <!-- Lado Izquierdo - Información -->
+            <div class="login-left">
+                <div class="login-brand">
+                    <div class="brand-icon">🔧</div>
+                    <h1 class="brand-title">Proveedores Motores</h1>
+                    <p class="brand-subtitle">Proveedores 3</p>
+                </div>
+
+                <div class="features-list">
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span class="feature-text">Acceso Seguro para Proveedores de Motores</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span class="feature-text">Gestión de Pedidos y Cotizaciones en Línea</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span class="feature-text">Consulta de Inventario y Disponibilidad de Motores</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span class="feature-text">Historial de Transacciones y Reportes Personalizados</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Lado Derecho - Formulario -->
+            <div class="login-right">
+                <div class="login-card">
+                    <!-- ✨ LOGO AGREGADO AQUÍ ✨ -->
+                    <div class="login-logo">
+                        <h:graphicImage library="img" name="logo_carro.jpeg" alt="Logo Proveedor 3 Motores"/>
+                    </div>
+                    
+                    <div class="login-header">
+                        <h2 class="login-title">Iniciar Sesión</h2>
+                        <p class="login-description">Ingresa tus credenciales para acceder al sistema</p>
+                    </div>
+
+                    <h:form styleClass="login-form">
+                        <!-- Campo Usuario -->
+                        <div class="form-group">
+                            <label for="usuario" class="form-label">
+                                <span class="label-icon">👤</span>
+                                Usuario
+                            </label>
+                            <h:inputText id="usuario" 
+                                         value="#{loginBean.usuario}"
+                                         styleClass="form-input"
+                                         required="true"
+                                         requiredMessage="El usuario es requerido">
+                                <f:passThroughAttribute name="placeholder" value="Ingresa tu usuario"/>
+                            </h:inputText>
+
+                        </div>
+
+                        <!-- Campo Contraseña -->
+                        <div class="form-group">
+                            <label for="password" class="form-label">
+                                <span class="label-icon">🔒</span>
+                                Contraseña
+                            </label>
+                            <h:inputSecret id="password" 
+                                           value="#{loginBean.password}"
+                                           styleClass="form-input"
+                                           required="true"
+                                           requiredMessage="La contraseña es requerida">
+                                <f:passThroughAttribute name="placeholder" value="Ingresa tu contraseña"/>
+                            </h:inputSecret>
+
+                        </div>
+
+                        <!-- Mensajes de error -->
+                        <h:messages styleClass="messages" 
+                                    errorClass="error-message"
+                                    infoClass="info-message"
+                                    globalOnly="false"/>
+
+                        <!-- Botón de Login -->
+                        <h:commandButton value="Iniciar Sesión" 
+                                         action="#{loginBean.login}"
+                                         styleClass="btn-login"/>
+
+                        <!-- Enlaces adicionales -->
+                        <div class="login-footer">
+                            <h:link outcome="recuperar-password" value="¿Olvidaste tu contraseña?" styleClass="link-secondary"/>
+                        </div>
+                    </h:form>
+
+                    <!-- Información adicional -->
+                    <div class="login-info">
+                        <p class="info-text">
+                            <span class="info-icon">ℹ️</span>
+                            Si tienes problemas para acceder, contacta al administrador del sistema
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>© 2025 Proveedor 3 Motores</p>
+        </div>
+    </h:body>
+</html>

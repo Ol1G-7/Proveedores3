@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Dashboard Principal - Sistema de Gestión</title>
+        <h:outputStylesheet library="css" name="dashboard.css"/>
+    </h:head>
+    <h:body>
+        <!-- Barra de Navegación Superior -->
+        <div class="navbar">
+            <div class="navbar-brand">
+                <span class="brand-icon">🏢</span>
+                <span class="brand-name">Sistema de Gestión Proveedores</span>
+            </div>
+            <div class="navbar-menu">
+                <div class="user-menu">
+                    <span class="user-icon">👤</span>
+                    <span class="user-name">#{sessionBean.nombreUsuario}</span>
+                    <div class="dropdown-menu">
+                        <h:form>
+                            <h:commandLink action="#{sessionBean.miCuenta}" styleClass="dropdown-item">
+                                <span class="dropdown-icon">⚙️</span> Mi Cuenta
+                            </h:commandLink>
+                            <h:commandLink action="#{sessionBean.configuracion}" styleClass="dropdown-item">
+                                <span class="dropdown-icon">🔧</span> Configuración
+                            </h:commandLink>
+                            <div class="dropdown-divider"></div>
+                            <h:commandLink action="#{sessionBean.logout}" styleClass="dropdown-item logout">
+                                <span class="dropdown-icon">🚪</span> Cerrar Sesión
+                            </h:commandLink>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-container">
+            <div class="dashboard-header">
+                <h1 class="dashboard-title">Sistema de Gestión Proveedores Internos</h1>
+                <p class="dashboard-subtitle">Bienvenido al panel de control principal. Selecciona un módulo para comenzar a gestionar los datos de la empresa.</p>
+            </div>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <span class="menu-icon">📦</span>
+                    <h3>Catálogo de Productos</h3>
+                    <p>Gestión completa de productos, características, categorías y promociones especiales.</p>
+                    <h:link outcome="catalogo/menu_catalogo" value="Acceder" styleClass="menu-link" />
+                </div>
+                <div class="menu-item">
+                    <span class="menu-icon">📊</span>
+                    <h3>Inventario y Stock</h3>
+                    <p>Control de existencias, ubicaciones en almacén y alertas de reposición automáticas.</p>
+                    <h:link outcome="inventario" value="Acceder" styleClass="menu-link" />
+                </div>
+                <div class="menu-item">
+                    <span class="menu-icon">💰</span>
+                    <h3>Ventas / Pedidos</h3>
+                    <p>Registro, seguimiento de estado y validación de pedidos integrados con el ERP.</p>
+                    <h:link outcome="ventas" value="Acceder" styleClass="menu-link" />
+                </div>
+                <div class="menu-item">
+                    <span class="menu-icon">💳</span>
+                    <h3>Pagos</h3>
+                    <p>Registro, validación y conciliación de pagos y comprobantes financieros.</p>
+                    <h:link outcome="pagos" value="Acceder" styleClass="menu-link" />
+                </div>
+                <div class="menu-item">
+                    <span class="menu-icon">🔄</span>
+                    <h3>Devoluciones</h3>
+                    <p>Gestión de devoluciones, reembolsos y actualización automática de inventario.</p>
+                    <h:link outcome="devoluciones/menu_devoluciones" value="Acceder" styleClass="menu-link" />
+                </div>
+                <div class="menu-item">
+                    <span class="menu-icon">📈</span>
+                    <h3>Reportes</h3>
+                    <p>Generación de reportes avanzados de ventas, pagos, productos y rendimiento.</p>
+                    <h:link outcome="reportes" value="Acceder" styleClass="menu-link" />
+                </div>
+                <div class="menu-item">
+                    <span class="menu-icon">👥</span>
+                    <h3>Usuarios y Roles</h3>
+                    <p>Gestión de usuarios internos, permisos de acceso y niveles de seguridad.</p>
+                    <h:link outcome="usuarios" value="Acceder" styleClass="menu-link" />
+                </div>
+            </div>
+        </div>
+    </h:body>
+</html>
