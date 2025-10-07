@@ -117,6 +117,7 @@ public class MongoClass {
                 System.out.println("Usuario encontrado: " + admin.toJson());
             } else {
                 System.out.println("Usuario 'admin' no encontrado.");
+                System.out.println(admin);
             }
 
             // --- TRABAJANDO CON LA COLECCIÓN 'productos' ---
