@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>#{empty usuarioBean.usuarioSeleccionado.id ? 'Agregar Nuevo Usuario' : 'Editar Usuario'}</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap"/>
+        <h:outputStylesheet library="css" name="usuarios.css"/>
+    </h:head>
+    <h:body>
+        <header class="main-header">
+        </header>
+
+        <main class="usuarios-main">
+            <div class="form-container">
+                <h1>#{empty usuarioBean.usuarioSeleccionado.id ? 'Agregar Nuevo Usuario' : 'Editar Usuario'}</h1>
+                <p>Completa los siguientes campos para registrar al usuario en el sistema.</p>
+
+                <h:form id="userForm">
+                    <div class="form-group">
+                        <h:outputLabel for="nombre" value="Nombre completo:" />
+                        <h:inputText id="nombre" value="#{usuarioBean.usuarioSeleccionado.nombre}" styleClass="form-control" 
+                                     required="true" requiredMessage="El nombre es obligatorio."
+                                     validatorMessage="El nombre debe tener al menos 3 caracteres.">
+                            <f:validateLength minimum="3" />
+                        </h:inputText>
+                        <h:message for="nombre" styleClass="error-message"/>
+                    </div>
+                    <div class="form-group">
+                        <h:outputLabel for="correo" value="Correo electrónico:" />
+                        <h:inputText id="correo" value="#{usuarioBean.usuarioSeleccionado.correo}" styleClass="form-control" 
+                                     required="true" requiredMessage="El correo es obligatorio."
+                                     validator="#{usuarioBean.validarCorreoUnico}"
+                                     validatorMessage="El formato del correo electrónico no es válido.">
+                            <f:validateRegex pattern="[\w\.-]+@[\w\.-]+\.[\w\.-]+" />
+                        </h:inputText>
+                        <h:message for="correo" styleClass="error-message"/>
+                    </div>
+                    <div class="form-group">
+                        <h:outputLabel for="password" value="Contraseña:" />
+                        <h:inputSecret id="password" value="#{usuarioBean.usuarioSeleccionado.password}" 
+                                       styleClass="form-control" 
+                                       required="#{empty usuarioBean.usuarioSeleccionado.id}" 
+                                       requiredMessage="La contraseña es obligatoria para nuevos usuarios."
+                                       validatorMessage="Si elige una nueva contraseña, debe tener al menos 8 caracteres.">
+
+                            <f:validateLength minimum="8" disabled="#{empty usuarioBean.usuarioSeleccionado.password}" />
+
+                        </h:inputSecret>
+                        <h:message for="password" styleClass="error-message"/>
+                        <small>Si estás editando, deja este campo en blanco para no cambiar la contraseña.</small>
+                    </div><div class="form-group">
+                        <h:outputLabel for="activo" value="Estado:" />
+                        <div class="checkbox-wrapper">
+                            <h:selectBooleanCheckbox id="activo" value="#{usuarioBean.usuarioSeleccionado.activo}" />
+                        </div>
+                        <small>Desmarca esta casilla si deseas desactivar al usuario.</small>
+                    </div>
+
+                    <div class="form-actions">
+                        <h:commandButton value="Guardar Usuario" action="#{usuarioBean.guardarYRedirigir}" styleClass="usuarios-btn"/>
+                        <h:button value="Cancelar" outcome="usuarios.xhtml" styleClass="btn-secondary"/>
+                    </div>
+                </h:form>
+            </div>
+        </main>
+    </h:body>
+</html>

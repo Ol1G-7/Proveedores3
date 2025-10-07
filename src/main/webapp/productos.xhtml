@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Gestión de Productos</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap"/>
+        <h:outputStylesheet library="css" name="usuarios.css"/> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+    </h:head>
+    <h:body>
+        <header class="main-header">
+            <div class="logo-area">
+                <h:graphicImage library="img" name="Logo.png" alt="Logo Proveedor 3 Motores"/>
+            </div>
+            <nav class="main-nav">
+                <a href="dashboard.xhtml" class="nav-link">Inicio</a>
+                <a href="usuarios.xhtml" class="nav-link">Usuarios</a>
+                <a href="productos.xhtml" class="nav-link active">Productos</a>
+                <a href="#" class="nav-link">Ventas</a>
+                <a href="#" class="nav-link">Inventario</a>
+            </nav>
+        </header>
+
+        <main class="usuarios-main">
+            <div class="usuarios-title-block">
+                <h1 class="usuarios-title">Gestión de Productos</h1>
+                <p class="usuarios-desc">Administra el catálogo de productos, consulta su información o agrega nuevos productos.</p>
+            </div>
+
+            <div class="usuarios-table-block">
+                <h:form>
+                    <div class="add-button-container" style="text-align: right; margin-bottom: 20px;">
+                        <h:commandButton value="＋ Agregar Producto" styleClass="usuarios-btn" action="#{productoBean.navegarAFormularioParaCrear}"/>
+                    </div>
+
+                    <h:dataTable value="#{productoBean.listaProductos}" var="p"
+                                 styleClass="usuarios-table" headerClass="usuarios-th"
+                                 id="tablaProductos">
+
+                        <h:column>
+                            <f:facet name="header">Código</f:facet>
+                                #{p.codigoProducto}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Nombre</f:facet>
+                                #{p.nombre}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Marca</f:facet>
+                                #{p.marca}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Categoría</f:facet>
+                                #{p.categoria}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Precio</f:facet>
+                            <h:outputText value="#{p.precio}">
+                                <f:convertNumber type="currency" currencySymbol="$" locale="es-MX"/>
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Acciones</f:facet>
+                            <h:commandLink styleClass="icon-btn" title="Editar" action="#{productoBean.navegarAFormularioParaEditar(p)}">
+                                <i class="fa fa-pen"></i>
+                            </h:commandLink>
+                            <h:commandLink styleClass="icon-btn" title="Eliminar" action="#{productoBean.eliminarProducto(p)}"
+                                           onclick="return confirm('¿Estás seguro de que deseas ELIMINAR este producto?');">
+                                <f:ajax render="@form"/>
+                                <i class="fa fa-trash"></i>
+                            </h:commandLink>
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
+            </div>
+        </main>
+
+        <footer class="main-footer" 
+                style="background: #18181b;
+                padding: 2.5rem 1rem;
+                text-align: center;
+                margin-top: 64px;
+                border-top: 1.5px solid #23272f;">
+
+            <p style="margin: 0;
+               color: #ffffff;
+               font-size: 1rem;
+               font-weight: 500;">
+                © 2025 Proveedor 3 Motores
+            </p>
+
+        </footer>
+
+    </h:body>
+</html>

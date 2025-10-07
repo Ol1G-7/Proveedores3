@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>#{empty inventarioBean.inventarioSeleccionado.id ? 'Agregar Inventario' : 'Editar Inventario'}</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap"/>
+        <h:outputStylesheet library="css" name="usuarios.css"/>
+
+
+        <!-- ✅ Estilos incrustados directamente como en tu ejemplo -->
+        <style type="text/css">
+            /* Aquí va todo el CSS que hace que se vea bien */
+            body {
+                font-family: 'Inter', system-ui, sans-serif;
+                margin: 0;
+                background-color: #f8f9fa;
+                color: #212529;
+                display: flex;
+                flex-direction: column;
+                min-height: 100vh;
+            }
+            .main-header {
+                background: #fff;
+                border-bottom: 1px solid #dee2e6;
+                padding: 1rem 2rem;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                position: sticky;
+                top: 0;
+                z-index: 1000;
+            }
+            .logo-area > h\:graphicImage {
+                height: 48px;
+            }
+            .main-nav {
+                display: flex;
+                gap: 0.5rem;
+            }
+            .nav-link {
+                text-decoration: none;
+                color: #495057;
+                font-weight: 600;
+                padding: 0.5rem 1rem;
+                border-radius: 0.5rem;
+                transition: all 0.2s;
+            }
+            .nav-link.active, .nav-link:hover {
+                color: #0d6efd;
+                background-color: #e7f1ff;
+            }
+            .page-main {
+                flex: 1 0 auto;
+                width: 100%;
+                max-width: 1200px;
+                margin: 2.5rem auto;
+                padding: 0 1rem;
+                box-sizing: border-box;
+            }
+            .form-container {
+                max-width: 700px;
+                margin: 0 auto;
+                background-color: #fff;
+                padding: 2.5rem;
+                border-radius: 0.75rem;
+                border: 1px solid #dee2e6;
+                box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+            }
+            .page-title {
+                font-size: 2rem;
+                font-weight: 700;
+                margin: 0 0 0.5rem 0;
+            }
+            .page-desc {
+                font-size: 1rem;
+                color: #6c757d;
+                margin-top: 0;
+            }
+            .form-group {
+                margin-bottom: 1.5rem;
+            }
+            .form-group label {
+                display: block;
+                margin-bottom: 0.5rem;
+                font-weight: 600;
+                font-size: 0.9rem;
+            }
+            .form-control {
+                width: 100%;
+                padding: 0.75rem 1rem;
+                border: 1px solid #ced4da;
+                border-radius: 0.5rem;
+                font-size: 1rem;
+                box-sizing: border-box;
+            }
+            .form-actions {
+                display: flex;
+                justify-content: flex-end;
+                gap: 0.75rem;
+                margin-top: 2rem;
+                padding-top: 1.5rem;
+                border-top: 1px solid #e9ecef;
+            }
+            .btn {
+                border: none;
+                padding: 0.75rem 1.5rem;
+                font-size: 0.95rem;
+                font-weight: 600;
+                border-radius: 0.5rem;
+                cursor: pointer;
+                text-decoration: none;
+            }
+            .btn-primary {
+                background-color: #1f2937;
+                color: #fff;
+            }
+            .btn-primary:hover {
+                background-color: #374151;
+            }
+            .btn-secondary {
+                background-color: #6c757d;
+                color: #fff;
+            }
+            .btn-secondary:hover {
+                background-color: #5a6268;
+            }
+            .error-message {
+                color: #dc3545;
+                font-size: 0.875rem;
+                margin-top: 0.25rem;
+            }
+            .main-footer {
+                text-align: center;
+                padding: 2.5rem 1rem;
+                margin-top: 4rem;
+                color: #fff;
+                background-color: #1f2937;
+            }
+            .main-footer p {
+                margin: 0;
+                font-weight: 500;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <!-- ✅ HEADER AÑADIDO -->
+        <header class="main-header">
+        </header>
+
+        <main class="page-main">
+            <div class="form-container">
+                <div class="page-title-block">
+                    <h1 class="page-title">#{empty inventarioBean.inventarioSeleccionado.id ? 'Agregar Inventario' : 'Editar Inventario'}</h1>
+                    <p class="page-desc">Define la cantidad y ubicación de un producto en el inventario.</p>
+                </div>
+
+                <h:form>
+                    <h:messages globalOnly="true" styleClass="error-message" layout="list" />
+
+                    <div class="form-group">
+                        <h:outputLabel for="producto" value="Producto:" />
+                        <h:selectOneMenu id="producto" value="#{inventarioBean.inventarioSeleccionado.productoId}" 
+                                         styleClass="form-control" 
+                                         required="true" requiredMessage="Debe seleccionar un producto."
+                                         disabled="#{not empty inventarioBean.inventarioSeleccionado.id}">
+                            <f:converter converterId="objectIdConverter" />
+                            <f:selectItem itemValue="#{null}" itemLabel="-- Seleccione un producto --" />
+                            <f:selectItems value="#{inventarioBean.listaProductosDisponibles}" var="prod" 
+                                           itemValue="#{prod.id}" itemLabel="#{prod.nombre}" />
+                        </h:selectOneMenu>
+                        <h:message for="producto" styleClass="error-message"/>
+                    </div>
+
+                    <div class="form-group">
+                        <h:outputLabel for="stock" value="Stock Actual:" />
+                        <h:inputText id="stock" value="#{inventarioBean.inventarioSeleccionado.stock}" 
+                                     styleClass="form-control" 
+                                     required="true" requiredMessage="El stock es obligatorio."
+                                     converterMessage="El stock debe ser un número entero.">
+                            <f:validateLongRange minimum="0" />
+                        </h:inputText>
+                        <h:message for="stock" styleClass="error-message"/>
+                    </div>
+
+                    <div class="form-group">
+                        <h:outputLabel for="ubicacion" value="Ubicación:" />
+                        <h:inputText id="ubicacion" value="#{inventarioBean.inventarioSeleccionado.ubicacion}" 
+                                     styleClass="form-control"
+                                     required="true" requiredMessage="La ubicación es obligatoria."/>
+                        <h:message for="ubicacion" styleClass="error-message"/>
+                    </div>
+
+                    <div class="form-group">
+                        <h:outputLabel for="minimo" value="Stock Mínimo:" />
+                        <h:inputText id="minimo" value="#{inventarioBean.inventarioSeleccionado.minimo}" 
+                                     styleClass="form-control"
+                                     required="true" requiredMessage="El stock mínimo es obligatorio."
+                                     converterMessage="El valor debe ser un número entero.">
+                            <f:validateLongRange minimum="0" />
+                        </h:inputText>
+                        <h:message for="minimo" styleClass="error-message"/>
+                    </div>
+
+                    <div class="form-group">
+                        <h:outputLabel for="maximo" value="Stock Máximo:" />
+                        <h:inputText id="maximo" value="#{inventarioBean.inventarioSeleccionado.maximo}" 
+                                     styleClass="form-control"
+                                     required="true" requiredMessage="El stock máximo es obligatorio."
+                                     converterMessage="El valor debe ser un número entero.">
+                            <f:validateLongRange minimum="0" />
+                        </h:inputText>
+                        <h:message for="maximo" styleClass="error-message"/>
+                    </div>
+
+                    <div class="form-actions">
+                        <h:commandButton value="Guardar" action="#{inventarioBean.guardarYRedirigir}" styleClass="btn btn-primary"/>
+                        <h:button value="Cancelar" outcome="inventarios" styleClass="btn btn-secondary"/>
+                    </div>
+                </h:form>
+            </div>
+        </main>
+
+        <footer class="main-footer">
+            <div class="footer-content">
+            </div>
+        </footer>
+    </h:body>
+</html>

@@ -3,87 +3,188 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Dashboard Principal - Sistema de Gestión</title>
+        <title>Inicio - Sistema de Gestión</title>
         <h:outputStylesheet library="css" name="dashboard.css"/>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap"/>
+        <style>
+            .charts-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(370px, 1fr));
+                gap: 40px;
+                margin-top: 30px;
+                margin-bottom: 30px;
+            }
+            .chart-card {
+                background: #fff;
+                border-radius: 20px;
+                box-shadow: 0 4px 24px #00000010, 0 1px 2px #e5e7eb;
+                padding: 32px 20px 22px 20px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                transition: box-shadow 0.18s, transform 0.16s;
+                min-height: 340px;
+                border: 1.5px solid #e5e7eb;
+            }
+            .chart-card:hover {
+                box-shadow: 0 8px 40px #38bdf822;
+                transform: scale(1.025);
+            }
+            .chart-title {
+                font-size: 1.15em;
+                color: #38bdf8;
+                font-weight: 700;
+                margin: 22px 0 0 0;
+                text-align: center;
+                letter-spacing: .02em;
+            }
+            @media (max-width: 900px) {
+                .charts-grid {
+                    grid-template-columns: 1fr;
+                    gap: 26px;
+                }
+            }/* === FOOTER === */
+            .main-footer {
+                width: 100%;
+                padding: 2.5rem 1rem;        /* ✅ Aumentamos el padding para hacerlo más grande (alto) */
+                margin-top: 64px;
+                background: #18181b;
+                border-top: 1.5px solid #23272f;
+                text-align: center;          /* ✅ Centramos el texto */
+                flex-shrink: 0;
+                box-sizing: border-box;
+            }
+
+            .main-footer p {
+                margin: 0;
+                color: #ffffff;              /* ✅ Aseguramos que el color sea blanco puro */
+                font-size: 1rem;             /* Hacemos la letra un poco más grande */
+                font-weight: 500;            /* Un grosor medio, legible */
+                letter-spacing: 0.5px;
+            }
+        </style>
     </h:head>
     <h:body>
-        <!-- Barra de Navegación Superior -->
-        <div class="navbar">
-            <div class="navbar-brand">
-                <span class="brand-icon">🏢</span>
-                <span class="brand-name">Sistema de Gestión Proveedores</span>
+        <header class="main-header">
+            <div class="logo-area">
+                <h:graphicImage library="img" name="Logo.png" alt="Logo Proveedor 3 Motores"/>
             </div>
-            <div class="navbar-menu">
-                <div class="user-menu">
-                    <span class="user-icon">👤</span>
-                    <span class="user-name">#{sessionBean.nombreUsuario}</span>
-                    <div class="dropdown-menu">
-                        <h:form>
-                            <h:commandLink action="#{sessionBean.miCuenta}" styleClass="dropdown-item">
-                                <span class="dropdown-icon">⚙️</span> Mi Cuenta
-                            </h:commandLink>
-                            <h:commandLink action="#{sessionBean.configuracion}" styleClass="dropdown-item">
-                                <span class="dropdown-icon">🔧</span> Configuración
-                            </h:commandLink>
-                            <div class="dropdown-divider"></div>
-                            <h:commandLink action="#{sessionBean.logout}" styleClass="dropdown-item logout">
-                                <span class="dropdown-icon">🚪</span> Cerrar Sesión
-                            </h:commandLink>
-                        </h:form>
-                    </div>
-                </div>
-            </div>
-        </div>
+            <nav class="main-nav">
+                <a href="dashboard.xhtml" class="nav-link active">Inicio</a>
+                <a href="usuarios.xhtml" class="nav-link">Usuarios</a>
+                <a href="productos.xhtml" class="nav-link">Productos</a>
+                <a href="#" class="nav-link">Ventas</a>
+                <a href="inventarios.xhtml" class="nav-link">Inventario</a>
+            </nav>
+        </header>
 
-        <div class="dashboard-container">
-            <div class="dashboard-header">
-                <h1 class="dashboard-title">Sistema de Gestión Proveedores Internos</h1>
-                <p class="dashboard-subtitle">Bienvenido al panel de control principal. Selecciona un módulo para comenzar a gestionar los datos de la empresa.</p>
-            </div>
-            <div class="menu-grid">
-                <div class="menu-item">
-                    <span class="menu-icon">📦</span>
-                    <h3>Catálogo de Productos</h3>
-                    <p>Gestión completa de productos, características, categorías y promociones especiales.</p>
-                    <h:link outcome="catalogo/menu_catalogo" value="Acceder" styleClass="menu-link" />
+        <main class="main-content">
+            <h1 class="page-title">Inicio</h1>
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <canvas id="barChart"></canvas>
+                    <div class="chart-title">Ventas por Mes</div>
                 </div>
-                <div class="menu-item">
-                    <span class="menu-icon">📊</span>
-                    <h3>Inventario y Stock</h3>
-                    <p>Control de existencias, ubicaciones en almacén y alertas de reposición automáticas.</p>
-                    <h:link outcome="inventario" value="Acceder" styleClass="menu-link" />
+                <div class="chart-card">
+                    <canvas id="lineChart"></canvas>
+                    <div class="chart-title">Inventario Histórico</div>
                 </div>
-                <div class="menu-item">
-                    <span class="menu-icon">💰</span>
-                    <h3>Ventas / Pedidos</h3>
-                    <p>Registro, seguimiento de estado y validación de pedidos integrados con el ERP.</p>
-                    <h:link outcome="ventas" value="Acceder" styleClass="menu-link" />
+                <div class="chart-card">
+                    <canvas id="pieChart"></canvas>
+                    <div class="chart-title">Distribución de Pagos</div>
                 </div>
-                <div class="menu-item">
-                    <span class="menu-icon">💳</span>
-                    <h3>Pagos</h3>
-                    <p>Registro, validación y conciliación de pagos y comprobantes financieros.</p>
-                    <h:link outcome="pagos" value="Acceder" styleClass="menu-link" />
-                </div>
-                <div class="menu-item">
-                    <span class="menu-icon">🔄</span>
-                    <h3>Devoluciones</h3>
-                    <p>Gestión de devoluciones, reembolsos y actualización automática de inventario.</p>
-                    <h:link outcome="devoluciones/menu_devoluciones" value="Acceder" styleClass="menu-link" />
-                </div>
-                <div class="menu-item">
-                    <span class="menu-icon">📈</span>
-                    <h3>Reportes</h3>
-                    <p>Generación de reportes avanzados de ventas, pagos, productos y rendimiento.</p>
-                    <h:link outcome="reportes" value="Acceder" styleClass="menu-link" />
-                </div>
-                <div class="menu-item">
-                    <span class="menu-icon">👥</span>
-                    <h3>Usuarios y Roles</h3>
-                    <p>Gestión de usuarios internos, permisos de acceso y niveles de seguridad.</p>
-                    <h:link outcome="usuarios" value="Acceder" styleClass="menu-link" />
+                <div class="chart-card">
+                    <canvas id="doughnutChart"></canvas>
+                    <div class="chart-title">Usuarios por Rol</div>
                 </div>
             </div>
-        </div>
+        </main>
+        <footer class="main-footer" 
+                style="background: #18181b;
+                padding: 2.5rem 1rem;
+                text-align: center;
+                margin-top: 64px;
+                border-top: 1.5px solid #23272f;">
+
+            <p style="margin: 0;
+               color: #ffffff;
+               font-size: 1rem;
+               font-weight: 500;">
+                © 2025 Proveedor 3 Motores
+            </p>
+
+        </footer>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+            // 1. Bar Chart
+            new Chart(document.getElementById('barChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun'],
+                    datasets: [{
+                            label: 'Ventas',
+                            backgroundColor: '#38bdf8',
+                            borderRadius: 9,
+                            data: [120, 190, 300, 220, 260, 180]
+                        }]
+                },
+                options: {
+                    plugins: {legend: {display: false}},
+                    scales: {y: {beginAtZero: true}}
+                }
+            });
+
+            // 2. Line Chart
+            new Chart(document.getElementById('lineChart'), {
+                type: 'line',
+                data: {
+                    labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun'],
+                    datasets: [{
+                            label: 'Inventario',
+                            data: [300, 350, 330, 390, 420, 410],
+                            borderColor: '#0ea5e9',
+                            backgroundColor: 'rgba(14,165,233,0.13)',
+                            fill: true,
+                            tension: 0.35,
+                            pointBackgroundColor: "#0ea5e9",
+                            pointRadius: 5
+                        }]
+                },
+                options: {
+                    plugins: {legend: {display: false}},
+                    scales: {y: {beginAtZero: false}}
+                }
+            });
+
+            // 3. Pie Chart
+            new Chart(document.getElementById('pieChart'), {
+                type: 'pie',
+                data: {
+                    labels: ['Pendiente', 'Pagado', 'Rechazado'],
+                    datasets: [{
+                            data: [9, 18, 4],
+                            backgroundColor: ['#fbbf24', '#22d3ee', '#ef4444']
+                        }]
+                },
+                options: {
+                    plugins: {legend: {display: true, position: 'bottom'}}
+                }
+            });
+
+            // 4. Doughnut Chart
+            new Chart(document.getElementById('doughnutChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: ['Administrador', 'Vendedor', 'Cliente'],
+                    datasets: [{
+                            data: [8, 23, 69],
+                            backgroundColor: ['#6366f1', '#38bdf8', '#e0e7ff']
+                        }]
+                },
+                options: {
+                    plugins: {legend: {display: true, position: 'bottom'}}
+                }
+            });
+        </script>
     </h:body>
 </html>

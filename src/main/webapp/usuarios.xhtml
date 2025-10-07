@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Gestión de usuarios</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap"/>
+        <h:outputStylesheet library="css" name="usuarios.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+    </h:head>
+    <h:body>
+        <!-- HEADER -->
+        <header class="main-header">
+            <div class="logo-area">
+                <h:graphicImage library="img" name="Logo.png" alt="Logo Proveedor 3 Motores"/>
+            </div>
+            <nav class="main-nav">
+                <a href="dashboard.xhtml" class="nav-link">Inicio</a>
+                <a href="usuarios.xhtml" class="nav-link active">Usuarios</a>
+                <a href="productos.xhtml" class="nav-link">Productos</a>
+                <a href="#" class="nav-link">Ventas</a>
+                <a href="#" class="nav-link">Inventario</a>
+            </nav>
+        </header>
+
+        <main class="usuarios-main">
+            <div class="usuarios-title-block">
+                <h1 class="usuarios-title">Gestión de usuarios</h1>
+                <p class="usuarios-desc">Administra los usuarios del sistema, consulta su información o agrega nuevos usuarios.</p>
+
+            </div>
+
+            <div class="usuarios-table-block">
+                <h:form>
+                    <div class="add-button-container" style="text-align: right; margin-bottom: 20px;">
+                        <h:commandButton value="＋ Agregar usuario" styleClass="usuarios-btn" action="#{usuarioBean.navegarAFormularioParaCrear}"/>
+                    </div>
+
+                    <div class="usuarios-search">
+                        <span class="usuarios-search-icon">🔍</span>
+                        <h:inputText value="#{usuarioBean.filtro}" styleClass="usuarios-search-input">
+                            <f:ajax event="keyup" render="tablaUsuarios"/>
+                        </h:inputText>
+                    </div>
+
+                    <h:dataTable value="#{usuarioBean.usuariosFiltrados}" var="u"
+                                 styleClass="usuarios-table" headerClass="usuarios-th"
+                                 id="tablaUsuarios">
+                        <h:column>
+                            <f:facet name="header">Nombre completo</f:facet>
+                                #{u.nombre}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Correo electrónico</f:facet>
+                                #{u.correo}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Rol</f:facet>
+                            <span class=" #{u.rol eq 'Admin' ? 'admin' : 'user'}">
+                                #{u.rol}
+                            </span>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Estado</f:facet>
+                            <span class="badge #{u.activo ? 'active-status' : 'inactive-status'}">
+                                #{u.activo ? 'Activo' : 'Inactivo'}
+                            </span>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Acciones</f:facet>
+                            <h:commandLink styleClass="icon-btn" title="Editar" action="#{usuarioBean.navegarAFormularioParaEditar(u)}">
+                                <i class="fa fa-pen"></i>  </h:commandLink>
+                            <h:commandLink styleClass="icon-btn" title="Desactivar" 
+                                           action="#{usuarioBean.desactivarUsuario(u)}"
+                                           onclick="return confirm('¿Estás seguro de que deseas DESACTIVAR este usuario?');">
+                                <f:ajax render="@form"/>
+                                <i class="fa fa-trash"></i>
+                            </h:commandLink>
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
+            </div>
+        </main>
+        <footer class="main-footer" 
+                style="background: #18181b;
+                padding: 2.5rem 1rem;
+                text-align: center;
+                margin-top: 64px;
+                border-top: 1.5px solid #23272f;">
+
+            <p style="margin: 0;
+               color: #ffffff;
+               font-size: 1rem;
+               font-weight: 500;">
+                © 2025 Proveedor 3 Motores
+            </p>
+
+        </footer>
+
+    </h:body>
+</html>
