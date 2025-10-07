@@ -1,6 +1,11 @@
 com\mycompany\erpmotores\beans\Usuario.class
 com\mycompany\erpmotores\beans\MongoClass.class
+com\mycompany\erpmotores\beans\InventarioBean.class
 com\mycompany\erpmotores\beans\UsuarioBean.class
 com\mycompany\erpmotores\resources\JakartaEE10Resource.class
 com\mycompany\erpmotores\beans\LoginBean.class
+com\mycompany\erpmotores\beans\ObjectIdConverter.class
+com\mycompany\erpmotores\beans\Producto.class
 com\mycompany\erpmotores\JakartaRestConfiguration.class
+com\mycompany\erpmotores\beans\Inventario.class
+com\mycompany\erpmotores\beans\ProductoBean.class

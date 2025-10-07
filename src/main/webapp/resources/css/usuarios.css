@@ -468,3 +468,22 @@ body {
 .checkbox-label {
     font-weight: normal; /* Para que la etiqueta no esté en negritas */
 }
+/* === FOOTER === */
+.main-footer {
+    width: 100%;
+    padding: 2.5rem 1rem;        /* ✅ Aumentamos el padding para hacerlo más grande (alto) */
+    margin-top: 64px;
+    background: #18181b;
+    border-top: 1.5px solid #23272f;
+    text-align: center;          /* ✅ Centramos el texto */
+    flex-shrink: 0;
+    box-sizing: border-box;
+}
+
+.main-footer p {
+    margin: 0;
+    color: #ffffff;              /* ✅ Aseguramos que el color sea blanco puro */
+    font-size: 1rem;             /* Hacemos la letra un poco más grande */
+    font-weight: 500;            /* Un grosor medio, legible */
+    letter-spacing: 0.5px;
+}

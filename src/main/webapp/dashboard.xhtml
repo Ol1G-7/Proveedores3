@@ -2,181 +2,189 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-  <h:head>
-    <title>Inicio - Sistema de Gestión</title>
-    <h:outputStylesheet library="css" name="dashboard.css"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap"/>
-    <style>
-      .charts-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(370px, 1fr));
-        gap: 40px;
-        margin-top: 30px;
-        margin-bottom: 30px;
-      }
-      .chart-card {
-        background: #fff;
-        border-radius: 20px;
-        box-shadow: 0 4px 24px #00000010, 0 1px 2px #e5e7eb;
-        padding: 32px 20px 22px 20px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        transition: box-shadow 0.18s, transform 0.16s;
-        min-height: 340px;
-        border: 1.5px solid #e5e7eb;
-      }
-      .chart-card:hover {
-        box-shadow: 0 8px 40px #38bdf822;
-        transform: scale(1.025);
-      }
-      .chart-title {
-        font-size: 1.15em;
-        color: #38bdf8;
-        font-weight: 700;
-        margin: 22px 0 0 0;
-        text-align: center;
-        letter-spacing: .02em;
-      }
-      @media (max-width: 900px) {
-        .charts-grid {
-          grid-template-columns: 1fr;
-          gap: 26px;
-        }
-      }
-    </style>
-  </h:head>
-  <h:body>
-    <!-- HEADER -->
-    <header class="main-header">
-      <div class="logo-area">
-        <h:graphicImage library="img" name="Logo.png" alt="Logo Proveedor 3 Motores"/>
-      </div>
-      <nav class="main-nav">
-        <a href="/Proveedores3/dashboard.xhtml" class="nav-link active">Inicio</a>
-        <a href="/Proveedores3/usuarios.xhtml" class="nav-link">Usuarios</a>
-        <a href="#" class="nav-link">Ventas</a>
-        <a href="#" class="nav-link">Inventario</a>
-      </nav>
-    </header>
+    <h:head>
+        <title>Inicio - Sistema de Gestión</title>
+        <h:outputStylesheet library="css" name="dashboard.css"/>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap"/>
+        <style>
+            .charts-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(370px, 1fr));
+                gap: 40px;
+                margin-top: 30px;
+                margin-bottom: 30px;
+            }
+            .chart-card {
+                background: #fff;
+                border-radius: 20px;
+                box-shadow: 0 4px 24px #00000010, 0 1px 2px #e5e7eb;
+                padding: 32px 20px 22px 20px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                transition: box-shadow 0.18s, transform 0.16s;
+                min-height: 340px;
+                border: 1.5px solid #e5e7eb;
+            }
+            .chart-card:hover {
+                box-shadow: 0 8px 40px #38bdf822;
+                transform: scale(1.025);
+            }
+            .chart-title {
+                font-size: 1.15em;
+                color: #38bdf8;
+                font-weight: 700;
+                margin: 22px 0 0 0;
+                text-align: center;
+                letter-spacing: .02em;
+            }
+            @media (max-width: 900px) {
+                .charts-grid {
+                    grid-template-columns: 1fr;
+                    gap: 26px;
+                }
+            }/* === FOOTER === */
+            .main-footer {
+                width: 100%;
+                padding: 2.5rem 1rem;        /* ✅ Aumentamos el padding para hacerlo más grande (alto) */
+                margin-top: 64px;
+                background: #18181b;
+                border-top: 1.5px solid #23272f;
+                text-align: center;          /* ✅ Centramos el texto */
+                flex-shrink: 0;
+                box-sizing: border-box;
+            }
 
-    <main class="main-content">
-      <h1 class="page-title">Inicio</h1>
-      <div class="charts-grid">
-        <div class="chart-card">
-          <canvas id="barChart"></canvas>
-          <div class="chart-title">Ventas por Mes</div>
-        </div>
-        <div class="chart-card">
-          <canvas id="lineChart"></canvas>
-          <div class="chart-title">Inventario Histórico</div>
-        </div>
-        <div class="chart-card">
-          <canvas id="pieChart"></canvas>
-          <div class="chart-title">Distribución de Pagos</div>
-        </div>
-        <div class="chart-card">
-          <canvas id="doughnutChart"></canvas>
-          <div class="chart-title">Usuarios por Rol</div>
-        </div>
-      </div>
-    </main>
-    <footer class="main-footer">
-      <div class="footer-content">
-        <div class="footer-brand">Nombre del sitio</div>
-        <div class="footer-links">
-          <div class="footer-col">
-            <div class="footer-title">Recursos</div>
-            <a href="#" class="footer-link">Documentación</a>
-            <a href="#" class="footer-link">API</a>
-            <a href="#" class="footer-link">Soporte</a>
-          </div>
-          <div class="footer-col">
-            <div class="footer-title">Empresa</div>
-            <a href="#" class="footer-link">Acerca de</a>
-            <a href="#" class="footer-link">Carreras</a>
-            <a href="#" class="footer-link">Contacto</a>
-          </div>
-          <div class="footer-col">
-            <div class="footer-title">Legal</div>
-            <a href="#" class="footer-link">Privacidad</a>
-            <a href="#" class="footer-link">Términos</a>
-            <a href="#" class="footer-link">Política de Cookies</a>
-          </div>
-        </div>
-      </div>
-    </footer>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-      // 1. Bar Chart
-      new Chart(document.getElementById('barChart'), {
-        type: 'bar',
-        data: {
-          labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun'],
-          datasets: [{
-            label: 'Ventas',
-            backgroundColor: '#38bdf8',
-            borderRadius: 9,
-            data: [120, 190, 300, 220, 260, 180]
-          }]
-        },
-        options: {
-          plugins: { legend: { display: false } },
-          scales: { y: { beginAtZero: true }}
-        }
-      });
+            .main-footer p {
+                margin: 0;
+                color: #ffffff;              /* ✅ Aseguramos que el color sea blanco puro */
+                font-size: 1rem;             /* Hacemos la letra un poco más grande */
+                font-weight: 500;            /* Un grosor medio, legible */
+                letter-spacing: 0.5px;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <header class="main-header">
+            <div class="logo-area">
+                <h:graphicImage library="img" name="Logo.png" alt="Logo Proveedor 3 Motores"/>
+            </div>
+            <nav class="main-nav">
+                <a href="dashboard.xhtml" class="nav-link active">Inicio</a>
+                <a href="usuarios.xhtml" class="nav-link">Usuarios</a>
+                <a href="productos.xhtml" class="nav-link">Productos</a>
+                <a href="#" class="nav-link">Ventas</a>
+                <a href="inventarios.xhtml" class="nav-link">Inventario</a>
+            </nav>
+        </header>
 
-      // 2. Line Chart
-      new Chart(document.getElementById('lineChart'), {
-        type: 'line',
-        data: {
-          labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun'],
-          datasets: [{
-            label: 'Inventario',
-            data: [300, 350, 330, 390, 420, 410],
-            borderColor: '#0ea5e9',
-            backgroundColor: 'rgba(14,165,233,0.13)',
-            fill: true,
-            tension: 0.35,
-            pointBackgroundColor: "#0ea5e9",
-            pointRadius: 5
-          }]
-        },
-        options: {
-          plugins: { legend: { display: false }},
-          scales: { y: { beginAtZero: false }}
-        }
-      });
+        <main class="main-content">
+            <h1 class="page-title">Inicio</h1>
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <canvas id="barChart"></canvas>
+                    <div class="chart-title">Ventas por Mes</div>
+                </div>
+                <div class="chart-card">
+                    <canvas id="lineChart"></canvas>
+                    <div class="chart-title">Inventario Histórico</div>
+                </div>
+                <div class="chart-card">
+                    <canvas id="pieChart"></canvas>
+                    <div class="chart-title">Distribución de Pagos</div>
+                </div>
+                <div class="chart-card">
+                    <canvas id="doughnutChart"></canvas>
+                    <div class="chart-title">Usuarios por Rol</div>
+                </div>
+            </div>
+        </main>
+        <footer class="main-footer" 
+                style="background: #18181b;
+                padding: 2.5rem 1rem;
+                text-align: center;
+                margin-top: 64px;
+                border-top: 1.5px solid #23272f;">
 
-      // 3. Pie Chart
-      new Chart(document.getElementById('pieChart'), {
-        type: 'pie',
-        data: {
-          labels: ['Pendiente', 'Pagado', 'Rechazado'],
-          datasets: [{
-            data: [9, 18, 4],
-            backgroundColor: ['#fbbf24', '#22d3ee', '#ef4444']
-          }]
-        },
-        options: {
-          plugins: { legend: { display: true, position: 'bottom' } }
-        }
-      });
+            <p style="margin: 0;
+               color: #ffffff;
+               font-size: 1rem;
+               font-weight: 500;">
+                © 2025 Proveedor 3 Motores
+            </p>
 
-      // 4. Doughnut Chart
-      new Chart(document.getElementById('doughnutChart'), {
-        type: 'doughnut',
-        data: {
-          labels: ['Administrador', 'Vendedor', 'Cliente'],
-          datasets: [{
-            data: [8, 23, 69],
-            backgroundColor: ['#6366f1', '#38bdf8', '#e0e7ff']
-          }]
-        },
-        options: {
-          plugins: { legend: { display: true, position: 'bottom' } }
-        }
-      });
-    </script>
-  </h:body>
+        </footer>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+            // 1. Bar Chart
+            new Chart(document.getElementById('barChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun'],
+                    datasets: [{
+                            label: 'Ventas',
+                            backgroundColor: '#38bdf8',
+                            borderRadius: 9,
+                            data: [120, 190, 300, 220, 260, 180]
+                        }]
+                },
+                options: {
+                    plugins: {legend: {display: false}},
+                    scales: {y: {beginAtZero: true}}
+                }
+            });
+
+            // 2. Line Chart
+            new Chart(document.getElementById('lineChart'), {
+                type: 'line',
+                data: {
+                    labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun'],
+                    datasets: [{
+                            label: 'Inventario',
+                            data: [300, 350, 330, 390, 420, 410],
+                            borderColor: '#0ea5e9',
+                            backgroundColor: 'rgba(14,165,233,0.13)',
+                            fill: true,
+                            tension: 0.35,
+                            pointBackgroundColor: "#0ea5e9",
+                            pointRadius: 5
+                        }]
+                },
+                options: {
+                    plugins: {legend: {display: false}},
+                    scales: {y: {beginAtZero: false}}
+                }
+            });
+
+            // 3. Pie Chart
+            new Chart(document.getElementById('pieChart'), {
+                type: 'pie',
+                data: {
+                    labels: ['Pendiente', 'Pagado', 'Rechazado'],
+                    datasets: [{
+                            data: [9, 18, 4],
+                            backgroundColor: ['#fbbf24', '#22d3ee', '#ef4444']
+                        }]
+                },
+                options: {
+                    plugins: {legend: {display: true, position: 'bottom'}}
+                }
+            });
+
+            // 4. Doughnut Chart
+            new Chart(document.getElementById('doughnutChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: ['Administrador', 'Vendedor', 'Cliente'],
+                    datasets: [{
+                            data: [8, 23, 69],
+                            backgroundColor: ['#6366f1', '#38bdf8', '#e0e7ff']
+                        }]
+                },
+                options: {
+                    plugins: {legend: {display: true, position: 'bottom'}}
+                }
+            });
+        </script>
+    </h:body>
 </html>
