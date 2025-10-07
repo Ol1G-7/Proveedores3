@@ -55,16 +55,24 @@
                         </h:column>
                         <h:column>
                             <f:facet name="header">Rol</f:facet>
-                            <span class="badge #{u.rol eq 'Admin' ? 'admin' : 'user'}">
+                            <span class=" #{u.rol eq 'Admin' ? 'admin' : 'user'}">
                                 #{u.rol}
+                            </span>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Estado</f:facet>
+                            <span class="badge #{u.activo ? 'active-status' : 'inactive-status'}">
+                                #{u.activo ? 'Activo' : 'Inactivo'}
                             </span>
                         </h:column>
                         <h:column>
                             <f:facet name="header">Acciones</f:facet>
                             <h:commandLink styleClass="icon-btn" title="Editar" action="#{usuarioBean.navegarAFormularioParaEditar(u)}">
                                 <i class="fa fa-pen"></i>  </h:commandLink>
-                            <h:commandLink styleClass="icon-btn" title="Eliminar" action="#{usuarioBean.eliminarUsuario(u)}">
-                                <f:ajax render="tablaUsuarios"/>
+                            <h:commandLink styleClass="icon-btn" title="Desactivar" 
+                                           action="#{usuarioBean.desactivarUsuario(u)}"
+                                           onclick="return confirm('¿Estás seguro de que deseas DESACTIVAR este usuario?');">
+                                <f:ajax render="@form"/>
                                 <i class="fa fa-trash"></i>
                             </h:commandLink>
                         </h:column>

@@ -458,4 +458,13 @@ body {
 }
 .btn-secondary:hover {
     background-color: #e0e0e0;
+}/* EN: usuarios.css */
+.checkbox-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Espacio entre el checkbox y la etiqueta */
+}
+
+.checkbox-label {
+    font-weight: normal; /* Para que la etiqueta no esté en negritas */
 }
