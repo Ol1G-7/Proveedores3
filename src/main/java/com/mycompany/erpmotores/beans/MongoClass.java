@@ -12,16 +12,20 @@ import org.bson.types.ObjectId;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.bson.conversions.Bson;
 
 /**
- * Clase genérica de Acceso a Datos (DAO) para interactuar con MongoDB.
- * Permite realizar operaciones CRUD en cualquier colección.
+ * Clase genérica de Acceso a Datos (DAO) para interactuar con MongoDB. Permite
+ * realizar operaciones CRUD en cualquier colección.
  */
 public class MongoClass {
+
     private final MongoClient mongoClient;
     private final MongoDatabase database;
+
     /**
      * Constructor que inicializa la conexión a la base de datos.
+     *
      * @param uri La cadena de conexión de MongoDB.
      * @param dbName El nombre de la base de datos.
      */
@@ -35,6 +39,7 @@ public class MongoClass {
 
     /**
      * Inserta un nuevo documento en la colección especificada.
+     *
      * @param collectionName El nombre de la colección.
      * @param documento El documento a insertar.
      * @return El ObjectId del documento insertado.
@@ -47,6 +52,7 @@ public class MongoClass {
 
     /**
      * Busca y devuelve el primer documento que coincide con un filtro.
+     *
      * @param collectionName El nombre de la colección.
      * @param filtro El filtro de búsqueda.
      * @return El primer documento encontrado o null si no hay coincidencias.
@@ -55,9 +61,10 @@ public class MongoClass {
         MongoCollection<Document> collection = database.getCollection(collectionName);
         return collection.find(filtro).first();
     }
-    
+
     /**
      * Busca y devuelve todos los documentos que coinciden con un filtro.
+     *
      * @param collectionName El nombre de la colección.
      * @param filtro El filtro de búsqueda.
      * @return Una lista de documentos.
@@ -71,19 +78,26 @@ public class MongoClass {
 
     /**
      * Actualiza el primer documento que coincide con un filtro.
+     *
      * @param collectionName El nombre de la colección.
      * @param filtro El filtro para encontrar el documento a actualizar.
-     * @param actualizacion El documento con los campos a actualizar (ej. usando $set).
+     * @param actualizacion El documento con los campos a actualizar (ej. usando
+     * $set).
      * @return El número de documentos modificados.
      */
-    public long actualizarUnDocumento(String collectionName, Document filtro, Document actualizacion) {
+// EN MongoClass.java
+// CÓMO ESTÁ AHORA:
+// public long actualizarUnDocumento(String collectionName, Document filtro, Document actualizacion) { ... }
+// CÓMO DEBE QUEDAR:
+    public long actualizarUnDocumento(String collectionName, Document filtro, Bson actualizacion) { // <-- CAMBIA Document por Bson
         MongoCollection<Document> collection = database.getCollection(collectionName);
-        UpdateResult result = collection.updateOne(filtro, actualizacion);
+        UpdateResult result = collection.updateOne(filtro, actualizacion); // <-- Esto ya funciona con Bson
         return result.getModifiedCount();
     }
 
     /**
      * Elimina el primer documento que coincide con un filtro.
+     *
      * @param collectionName El nombre de la colección.
      * @param filtro El filtro para encontrar el documento a eliminar.
      * @return El número de documentos eliminados.
@@ -103,8 +117,9 @@ public class MongoClass {
             System.out.println("Conexión a MongoDB cerrada.");
         }
     }
+
     public static void main(String[] args) {
-         String uri = "mongodb://localhost:27017/";
+        String uri = "mongodb://localhost:27017/";
         MongoClass dao = new MongoClass();
 
         try {
@@ -122,11 +137,11 @@ public class MongoClass {
 
             // --- TRABAJANDO CON LA COLECCIÓN 'productos' ---
             System.out.println("\n--- Operaciones en 'productos' ---");
-            
+
             // 1. Insertar un producto nuevo
             Document nuevoProducto = new Document("nombre", "Laptop Gamer")
-                                        .append("precio", 120.50)
-                                        .append("stock", 50);
+                    .append("precio", 120.50)
+                    .append("stock", 50);
             ObjectId idProducto = dao.insertarDocumento("productos", nuevoProducto);
             System.out.println("Producto insertado con ID: " + idProducto);
 
@@ -139,11 +154,10 @@ public class MongoClass {
             Document actualizacion = new Document("$set", new Document("precio", 150.00));
             long modificados = dao.actualizarUnDocumento("productos", filtroProducto, actualizacion);
             System.out.println("Documentos modificados: " + modificados);
-            
+
             // 4. Eliminar el producto
             long eliminados = dao.eliminarUnDocumento("productos", filtroProducto);
             System.out.println("Documentos eliminados: " + eliminados);
-
 
         } catch (Exception e) {
             System.err.println("Ocurrió un error: " + e.getMessage());
@@ -151,6 +165,6 @@ public class MongoClass {
             // Es crucial cerrar la conexión al final
             dao.cerrarConexion();
         }
-    
+
     }
 }

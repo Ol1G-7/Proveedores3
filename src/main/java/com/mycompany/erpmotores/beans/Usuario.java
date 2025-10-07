@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.erpmotores.beans;
 
 import org.bson.types.ObjectId;
@@ -12,6 +8,7 @@ public class Usuario implements Serializable {
     private String nombre;
     private String correo;
     private String rol;
+    private String password; // <-- CAMPO AÑADIDO
 
     public Usuario() {}
 
@@ -21,6 +18,7 @@ public class Usuario implements Serializable {
         this.correo = correo;
         this.rol = rol;
     }
+
     // Getters y Setters
     public ObjectId getId() { return id; }
     public void setId(ObjectId id) { this.id = id; }
@@ -30,4 +28,8 @@ public class Usuario implements Serializable {
     public void setCorreo(String correo) { this.correo = correo; }
     public String getRol() { return rol; }
     public void setRol(String rol) { this.rol = rol; }
+
+    // --- GETTER Y SETTER AÑADIDOS ---
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
 }

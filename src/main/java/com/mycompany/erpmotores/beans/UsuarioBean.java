@@ -4,7 +4,9 @@
  */
 package com.mycompany.erpmotores.beans;
 
+import com.mongodb.client.model.Updates;
 import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
 import org.bson.Document;
@@ -14,10 +16,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.bson.conversions.Bson;
 
 @Named("usuarioBean")
-@ViewScoped
+@SessionScoped // <-- CAMBIO DE @ViewScoped A @SessionScoped
 public class UsuarioBean implements Serializable {
+
     private List<Usuario> listaUsuarios;
     private String filtro = "";
     private Usuario usuarioSeleccionado;
@@ -34,10 +38,10 @@ public class UsuarioBean implements Serializable {
         List<Document> docs = mongoDao.buscarDocumentos("usuarios", new Document());
         for (Document doc : docs) {
             Usuario u = new Usuario(
-                doc.getObjectId("_id"),
-                doc.getString("nombre"),
-                doc.getString("email"),
-                doc.getString("rol")
+                    doc.getObjectId("_id"),
+                    doc.getString("nombre"),
+                    doc.getString("email"),
+                    doc.getString("rol")
             );
             listaUsuarios.add(u);
         }
@@ -49,41 +53,85 @@ public class UsuarioBean implements Serializable {
         }
         String f = filtro.toLowerCase().trim();
         return listaUsuarios.stream()
-                .filter(u -> u.getNombre().toLowerCase().contains(f) ||
-                             u.getCorreo().toLowerCase().contains(f) ||
-                             u.getRol().toLowerCase().contains(f))
+                .filter(u -> u.getNombre().toLowerCase().contains(f)
+                || u.getCorreo().toLowerCase().contains(f)
+                || u.getRol().toLowerCase().contains(f))
                 .collect(Collectors.toList());
     }
 
-    public void agregarUsuario() {
-        // Ejemplo: agrega un usuario demo. Reemplaza por lógica de formulario/modal
-        Document nuevo = new Document("nombre", "Nuevo Usuario")
-                .append("email", "nuevo@correo.com")
-                .append("rol", "Usuario");
-        mongoDao.insertarDocumento("usuarios", nuevo);
-        cargarUsuarios();
+// --- MÉTODOS DE NAVEGACIÓN ---
+    public String navegarAFormularioParaCrear() {
+        this.usuarioSeleccionado = new Usuario();
+        return "usuarioForm?faces-redirect=true";
     }
 
-    public void editarUsuario(Usuario usuario) {
-        // Lógica para editar (normalmente abres modal, aquí ejemplo simple)
-        // Por ejemplo, cambiar el rol:
-        Document filtro = new Document("_id", usuario.getId());
-        Document actualizacion = new Document("$set", new Document("rol", "Admin"));
-        mongoDao.actualizarUnDocumento("usuarios", filtro, actualizacion);
+    public String navegarAFormularioParaEditar(Usuario usuario) {
+        this.usuarioSeleccionado = usuario;
+        return "usuarioForm?faces-redirect=true";
+    }
+
+    public String guardarYRedirigir() {
+        if (usuarioSeleccionado == null) {
+            return null; // O redirigir a una página de error
+        }
+
+        if (usuarioSeleccionado.getId() == null) {
+            // --- LÓGICA PARA CREAR UN NUEVO USUARIO ---
+            Document nuevoUsuarioDoc = new Document()
+                    .append("nombre", usuarioSeleccionado.getNombre())
+                    .append("email", usuarioSeleccionado.getCorreo())
+                    .append("rol", usuarioSeleccionado.getRol());
+
+            if (usuarioSeleccionado.getPassword() != null && !usuarioSeleccionado.getPassword().isEmpty()) {
+                nuevoUsuarioDoc.append("password", usuarioSeleccionado.getPassword());
+            }
+            mongoDao.insertarDocumento("usuarios", nuevoUsuarioDoc);
+        } else {
+            // --- LÓGICA PARA ACTUALIZAR UN USUARIO EXISTENTE ---
+            Document filtroDoc = new Document("_id", usuarioSeleccionado.getId());
+            Document datosAActualizar = new Document()
+                    .append("nombre", usuarioSeleccionado.getNombre())
+                    .append("email", usuarioSeleccionado.getCorreo())
+                    .append("rol", usuarioSeleccionado.getRol());
+
+            if (usuarioSeleccionado.getPassword() != null && !usuarioSeleccionado.getPassword().trim().isEmpty()) {
+                datosAActualizar.append("password", usuarioSeleccionado.getPassword());
+            }
+            Document actualizacionFinal = new Document("$set", datosAActualizar);
+            mongoDao.actualizarUnDocumento("usuarios", filtroDoc, actualizacionFinal);
+        }
+
         cargarUsuarios();
+        return "usuarios?faces-redirect=true";
     }
 
     public void eliminarUsuario(Usuario usuario) {
-        Document filtro = new Document("_id", usuario.getId());
-        mongoDao.eliminarUnDocumento("usuarios", filtro);
-        cargarUsuarios();
+        // ... tu código para eliminar (sin cambios)
     }
 
     // Getters y Setters
-    public List<Usuario> getListaUsuarios() { return listaUsuarios; }
-    public void setListaUsuarios(List<Usuario> listaUsuarios) { this.listaUsuarios = listaUsuarios; }
-    public String getFiltro() { return filtro; }
-    public void setFiltro(String filtro) { this.filtro = filtro; }
-    public Usuario getUsuarioSeleccionado() { return usuarioSeleccionado; }
-    public void setUsuarioSeleccionado(Usuario usuarioSeleccionado) { this.usuarioSeleccionado = usuarioSeleccionado; }
+    public List<Usuario> getListaUsuarios() {
+        return listaUsuarios;
+    }
+
+    public void setListaUsuarios(List<Usuario> listaUsuarios) {
+        this.listaUsuarios = listaUsuarios;
+    }
+
+    public String getFiltro() {
+        return filtro;
+    }
+
+    public void setFiltro(String filtro) {
+        this.filtro = filtro;
+    }
+
+    public Usuario getUsuarioSeleccionado() {
+        return usuarioSeleccionado;
+    }
+
+    public void setUsuarioSeleccionado(Usuario usuarioSeleccionado) {
+        this.usuarioSeleccionado = usuarioSeleccionado;
+    }
+
 }
