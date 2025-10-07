@@ -2,235 +2,235 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-<h:head>
-    <title>Gestión de Inventario</title>
-    <h:outputStylesheet library="css" name="usuarios.css"/> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
-    <style>/* === ESTILOS GLOBALES === */
-body {
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    margin: 0;
-    background-color: #f8f9fa;
-    color: #111827; /* Texto principal más oscuro */
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
+    <h:head>
+        <title>Gestión de Inventario</title>
+        <h:outputStylesheet library="css" name="usuarios.css"/> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+        <style>/* === ESTILOS GLOBALES === */
+            body {
+                font-family: 'Inter', system-ui, -apple-system, sans-serif;
+                margin: 0;
+                background-color: #f8f9fa;
+                color: #111827; /* Texto principal más oscuro */
+                display: flex;
+                flex-direction: column;
+                min-height: 100vh;
+            }
 
-/* === HEADER Y NAVEGACIÓN === */
-.main-header {
-    background: #fff;
-    border-bottom: 1px solid #e5e7eb;
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
-/* ... (estilos de header sin cambios) ... */
+            /* === HEADER Y NAVEGACIÓN === */
+            .main-header {
+                background: #fff;
+                border-bottom: 1px solid #e5e7eb;
+                padding: 1rem 2rem;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                position: sticky;
+                top: 0;
+                z-index: 1000;
+            }
+            /* ... (estilos de header sin cambios) ... */
 
-/* === LAYOUT PRINCIPAL === */
-.page-main {
-    flex: 1 0 auto;
-    width: 100%;
-    max-width: 1200px;
-    margin: 2.5rem auto;
-    padding: 0 1rem;
-    box-sizing: border-box;
-}
+            /* === LAYOUT PRINCIPAL === */
+            .page-main {
+                flex: 1 0 auto;
+                width: 100%;
+                max-width: 1200px;
+                margin: 2.5rem auto;
+                padding: 0 1rem;
+                box-sizing: border-box;
+            }
 
-.page-title {
-    font-size: 2.25rem;
-    font-weight: 800;
-    margin-bottom: 0.5rem;
-}
-.page-desc {
-    font-size: 1.1rem;
-    color: #6b7280; /* Gris más suave */
-    margin-top: 0;
-}
+            .page-title {
+                font-size: 2.25rem;
+                font-weight: 800;
+                margin-bottom: 0.5rem;
+            }
+            .page-desc {
+                font-size: 1.1rem;
+                color: #6b7280; /* Gris más suave */
+                margin-top: 0;
+            }
 
-/* === SECCIÓN DE ACCIONES DE LA TABLA (Botón y Búsqueda) === */
-.table-actions-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.5rem;
-}
+            /* === SECCIÓN DE ACCIONES DE LA TABLA (Botón y Búsqueda) === */
+            .table-actions-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 1.5rem;
+            }
 
-/* === BOTÓN PRIMARIO (Estilo de tu captura) === */
-.btn-primary {
-    background-color: #111827; /* Negro/Gris oscuro */
-    color: #ffffff;
-    border: none;
-    padding: 0.75rem 1.5rem;
-    font-size: 0.9rem;
-    font-weight: 600;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-    text-align: center;
-    transition: background-color 0.2s ease-in-out;
-}
-.btn-primary:hover {
-    background-color: #374151; /* Un poco más claro al pasar el mouse */
-}
+            /* === BOTÓN PRIMARIO (Estilo de tu captura) === */
+            .btn-primary {
+                background-color: #111827; /* Negro/Gris oscuro */
+                color: #ffffff;
+                border: none;
+                padding: 0.75rem 1.5rem;
+                font-size: 0.9rem;
+                font-weight: 600;
+                border-radius: 0.5rem;
+                cursor: pointer;
+                text-decoration: none;
+                display: inline-block;
+                text-align: center;
+                transition: background-color 0.2s ease-in-out;
+            }
+            .btn-primary:hover {
+                background-color: #374151; /* Un poco más claro al pasar el mouse */
+            }
 
-/* === CAMPO DE BÚSQUEDA (Estilo de tu captura) === */
-.search-box {
-    display: flex;
-    align-items: center;
-    border: 1px solid #d1d5db;
-    border-radius: 0.5rem;
-    padding: 0.5rem 0.75rem;
-    background-color: #ffffff;
-    width: 300px; /* Ancho fijo para la caja de búsqueda */
-}
-.search-icon {
-    color: #9ca3af; /* Icono de lupa gris */
-    margin-right: 0.5rem;
-}
-.search-input {
-    border: none;
-    background: transparent;
-    font-size: 1rem;
-    outline: none;
-    width: 100%;
-}
+            /* === CAMPO DE BÚSQUEDA (Estilo de tu captura) === */
+            .search-box {
+                display: flex;
+                align-items: center;
+                border: 1px solid #d1d5db;
+                border-radius: 0.5rem;
+                padding: 0.5rem 0.75rem;
+                background-color: #ffffff;
+                width: 300px; /* Ancho fijo para la caja de búsqueda */
+            }
+            .search-icon {
+                color: #9ca3af; /* Icono de lupa gris */
+                margin-right: 0.5rem;
+            }
+            .search-input {
+                border: none;
+                background: transparent;
+                font-size: 1rem;
+                outline: none;
+                width: 100%;
+            }
 
-/* === TABLA DE DATOS (Estilo de tu captura) === */
-.data-table-block {
-    background: #fff;
-    border-radius: 0.75rem;
-    border: 1px solid #e5e7eb;
-    overflow: hidden; /* Importante para que los bordes redondeados afecten a la tabla */
-    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
-}
-.data-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-.data-table th, .data-table td {
-    padding: 1rem 1.5rem;
-    text-align: left;
-    font-size: 0.9rem;
-    border-bottom: 1px solid #e5e7eb;
-}
-.data-table th {
-    font-weight: 600;
-    color: #4b5563; /* Color de cabecera */
-    text-transform: uppercase;
-    font-size: 0.75rem;
-    letter-spacing: 0.05em;
-    background-color: #f9fafb; /* Fondo muy claro para cabeceras */
-}
-.data-table tr:last-child td {
-    border-bottom: none;
-}
-.data-table tbody tr:hover {
-    background-color: #f9fafb;
-}
+            /* === TABLA DE DATOS (Estilo de tu captura) === */
+            .data-table-block {
+                background: #fff;
+                border-radius: 0.75rem;
+                border: 1px solid #e5e7eb;
+                overflow: hidden; /* Importante para que los bordes redondeados afecten a la tabla */
+                box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+            }
+            .data-table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+            .data-table th, .data-table td {
+                padding: 1rem 1.5rem;
+                text-align: left;
+                font-size: 0.9rem;
+                border-bottom: 1px solid #e5e7eb;
+            }
+            .data-table th {
+                font-weight: 600;
+                color: #4b5563; /* Color de cabecera */
+                text-transform: uppercase;
+                font-size: 0.75rem;
+                letter-spacing: 0.05em;
+                background-color: #f9fafb; /* Fondo muy claro para cabeceras */
+            }
+            .data-table tr:last-child td {
+                border-bottom: none;
+            }
+            .data-table tbody tr:hover {
+                background-color: #f9fafb;
+            }
 
-/* === ETIQUETAS (BADGES - Estilo de tu captura) === */
-.badge {
-    padding: 0.25rem 0.75rem;
-    border-radius: 9999px; /* Píldora redondeada */
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: capitalize;
-}
-.badge-success { /* Para "Activo" */
-    background-color: #d1fae5;
-    color: #065f46;
-}
-.badge-secondary { /* Para "Inactivo" */
-    background-color: #f3f4f6;
-    color: #374151;
-}
+            /* === ETIQUETAS (BADGES - Estilo de tu captura) === */
+            .badge {
+                padding: 0.25rem 0.75rem;
+                border-radius: 9999px; /* Píldora redondeada */
+                font-size: 0.75rem;
+                font-weight: 600;
+                text-transform: capitalize;
+            }
+            .badge-success { /* Para "Activo" */
+                background-color: #d1fae5;
+                color: #065f46;
+            }
+            .badge-secondary { /* Para "Inactivo" */
+                background-color: #f3f4f6;
+                color: #374151;
+            }
 
-/* === ÍCONOS DE ACCIÓN (Estilo de tu captura) === */
-.icon-btn {
-    color: #6b7280;
-    text-decoration: none;
-    margin: 0 0.25rem;
-    padding: 0.5rem;
-    border-radius: 50%;
-    transition: all 0.2s ease-in-out;
-}
-.icon-btn:hover {
-    background-color: #f3f4f6;
-    color: #111827;
-}
+            /* === ÍCONOS DE ACCIÓN (Estilo de tu captura) === */
+            .icon-btn {
+                color: #6b7280;
+                text-decoration: none;
+                margin: 0 0.25rem;
+                padding: 0.5rem;
+                border-radius: 50%;
+                transition: all 0.2s ease-in-out;
+            }
+            .icon-btn:hover {
+                background-color: #f3f4f6;
+                color: #111827;
+            }
 
-/* === FOOTER === */
-/* ... tus estilos de footer ... */</style>
-</h:head>
-<h:body>
-    <header class="main-header">
-        <div class="logo-area">
-            <h:graphicImage library="img" name="Logo.png" alt="Logo Proveedor 3 Motores"/>
-        </div>
-        <nav class="main-nav">
-             <a href="dashboard.xhtml" class="nav-link">Inicio</a>
-             <a href="usuarios.xhtml" class="nav-link">Usuarios</a>
-             <a href="productos.xhtml" class="nav-link">Productos</a>
-             <a href="inventarios.xhtml" class="nav-link active">Inventario</a>
-             </nav>
-    </header>
-    
-    <main class="page-main">
-        <div class="page-title-block">
-            <h1 class="page-title">Gestión de Inventario</h1>
-            <p class="page-desc">Consulta y administra el stock de los productos.</p>
-        </div>
-        
-        <h:form style="margin-bottom: 1.5rem;">
-            <h:commandButton value="＋ Agregar Inventario" styleClass="btn-primary" 
-                             action="#{inventarioBean.navegarAFormularioParaCrear}"/>
-        </h:form>
+            /* === FOOTER === */
+            /* ... tus estilos de footer ... */</style>
+    </h:head>
+    <h:body>
+        <header class="main-header">
+            <div class="logo-area">
+                <h:graphicImage library="img" name="Logo.png" alt="Logo Proveedor 3 Motores"/>
+            </div>
+            <nav class="main-nav">
+                <a href="dashboard.xhtml" class="nav-link active">Inicio</a>
+                <a href="usuarios.xhtml" class="nav-link">Usuarios</a>
+                <a href="productos.xhtml" class="nav-link">Productos</a>
+                <a href="inventarios.xhtml" class="nav-link">Inventario</a>
+            </nav>
+        </header>
 
-        <div class="data-table-block">
-            <h:form>
-                <h:dataTable value="#{inventarioBean.listaInventarios}" var="i"
-                             styleClass="data-table" id="tablaInventarios">
-                    
-                    <h:column>
-                        <f:facet name="header">Producto</f:facet>
-                        #{i.nombreProducto}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Stock Actual</f:facet>
-                        #{i.stock}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Ubicación</f:facet>
-                        #{i.ubicacion}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Stock Mínimo</f:facet>
-                        #{i.minimo}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Acciones</f:facet>
-                        <h:commandLink styleClass="icon-btn" title="Editar" 
-                                       action="#{inventarioBean.navegarAFormularioParaEditar(i)}">
-                            <i class="fa fa-pen"></i>
-                        </h:commandLink>
-                        <h:commandLink styleClass="icon-btn" title="Eliminar" 
-                                       action="#{inventarioBean.eliminarInventario(i)}"
-                                       onclick="return confirm('¿Estás seguro de que deseas eliminar este registro?');">
-                            <f:ajax render="@form"/>
-                            <i class="fa fa-trash"></i>
-                        </h:commandLink>
-                    </h:column>
-                </h:dataTable>
+        <main class="page-main">
+            <div class="page-title-block">
+                <h1 class="page-title">Gestión de Inventario</h1>
+                <p class="page-desc">Consulta y administra el stock de los productos.</p>
+            </div>
+
+            <h:form style="margin-bottom: 1.5rem;">
+                <h:commandButton value="＋ Agregar Inventario" styleClass="btn-primary" 
+                                 action="#{inventarioBean.navegarAFormularioParaCrear}"/>
             </h:form>
-        </div>
-    </main>
-    
-       <footer class="main-footer" 
+
+            <div class="data-table-block">
+                <h:form>
+                    <h:dataTable value="#{inventarioBean.listaInventarios}" var="i"
+                                 styleClass="data-table" id="tablaInventarios">
+
+                        <h:column>
+                            <f:facet name="header">Producto</f:facet>
+                                #{i.nombreProducto}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Stock Actual</f:facet>
+                                #{i.stock}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Ubicación</f:facet>
+                                #{i.ubicacion}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Stock Mínimo</f:facet>
+                                #{i.minimo}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Acciones</f:facet>
+                            <h:commandLink styleClass="icon-btn" title="Editar" 
+                                           action="#{inventarioBean.navegarAFormularioParaEditar(i)}">
+                                <i class="fa fa-pen"></i>
+                            </h:commandLink>
+                            <h:commandLink styleClass="icon-btn" title="Eliminar" 
+                                           action="#{inventarioBean.eliminarInventario(i)}"
+                                           onclick="return confirm('¿Estás seguro de que deseas eliminar este registro?');">
+                                <f:ajax render="@form"/>
+                                <i class="fa fa-trash"></i>
+                            </h:commandLink>
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
+            </div>
+        </main>
+
+        <footer class="main-footer" 
                 style="background: #18181b;
                 padding: 2.5rem 1rem;
                 text-align: center;
@@ -245,5 +245,5 @@ body {
             </p>
 
         </footer>
-</h:body>
+    </h:body>
 </html>
