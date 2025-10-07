@@ -20,14 +20,94 @@ html, body {
   flex-direction: row-reverse;
 }
 
-/* ======= LADO IZQUIERDO (LOGIN) ======= */
+/* ======= LADO IZQUIERDO (INFORMACIÓN DE PROVEEDORES) ======= */
 .login-left {
   width: 50%;
   background-color: #fff;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 40px;
+  text-align: center;
+}
+
+/* ======= CONTENEDOR INTERNO PARA TITULO + CARACTERÍSTICAS ======= */
+.login-left-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 80px; /* espacio entre título y lista */
+  max-width: 400px;
+  width: 100%;
+}
+
+/* ======= TITULO DE PROVEEDORES ======= */
+.login-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  text-align: center;
+}
+
+.brand-icon {
+  font-size: 2.5em;
+}
+
+.brand-title {
+  font-size: 1.8em;
+  color: #000;
+  margin: 0;
+}
+
+.brand-subtitle {
+  font-size: 1em;
+  color: #555;
+  margin: 0;
+}
+
+/* ======= LISTA DE CARACTERÍSTICAS ======= */
+.features-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.95em;
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 10px 15px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.feature-item:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.feature-icon {
+  color: #4caf50;
+  font-weight: bold;
+}
+
+/* ======= LADO DERECHO (LOGIN) ======= */
+.login-right {
+  width: 50%;
+  background-color: #000;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 50px 40px;
+  text-align: center;
+  position: relative; /* para el logo absoluto */
 }
 
 /* ======= TARJETA DE LOGIN ======= */
@@ -35,23 +115,27 @@ html, body {
   width: 100%;
   max-width: 420px;
   background-color: #ffffff;
-  padding: 40px 35px;
+  padding: 40px 35px 35px; /* padding top suficiente */
   border-radius: 15px;
   box-shadow: 0 10px 35px rgba(0, 0, 0, 0.15);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-/* ======= LOGO ======= */
+/* ======= LOGO SUPERPUESTO SOBRE TARJETA ======= */
 .login-logo {
-  text-align: center;
-  margin-bottom: 30px;
+  position: relative; /* no absoluto */
+  margin-bottom: 20px; /* lo superpone sobre la tarjeta */
+  z-index: 10;
 }
 
 .login-logo img {
-  max-width: 150px;
+  max-width: 200px;
   height: auto;
-  display: block;
-  margin: 0 auto;
 }
+
 
 /* ======= HEADER ======= */
 .login-header {
@@ -145,69 +229,6 @@ html, body {
 
 .link-secondary:hover {
   text-decoration: underline;
-}
-
-/* ======= INFO ADICIONAL ======= */
-.login-info {
-  margin-top: 25px;
-  font-size: 0.85em;
-  color: #666;
-  text-align: center;
-}
-
-/* ======= LADO DERECHO (CARACTERÍSTICAS) ======= */
-.login-right {
-  width: 50%;
-  background-color: #000;
-  color: #fff;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 50px 40px;
-  text-align: center;
-  position: relative;
-}
-
-/* ======= TITULO DE PROVEEDORES ======= */
-.login-brand {
-  max-width: 300px;
-  width: 100%;
-  position: absolute;
-  top: 50px;
-  right: 250px;
-  text-align: center;
-  margin-bottom: 0;
-}
-
-/* ======= LISTA DE CARACTERÍSTICAS ======= */
-.features-list {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  max-width: 380px;
-  width: 100%;
-  margin-top: 20px;
-}
-
-.feature-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 0.95em;
-  background-color: rgba(255, 255, 255, 0.1);
-  padding: 10px 15px;
-  border-radius: 8px;
-  transition: background-color 0.3s ease;
-}
-
-.feature-item:hover {
-  background-color: rgba(255, 255, 255, 0.2);
-}
-
-.feature-icon {
-  color: #4caf50;
-  font-weight: bold;
 }
 
 /* ======= FOOTER GLOBAL ======= */
