@@ -1,3 +1,4 @@
 com\mycompany\erpmotores\resources\JakartaEE10Resource.class
 com\mycompany\erpmotores\beans\LoginBean.class
 com\mycompany\erpmotores\JakartaRestConfiguration.class
+com\mycompany\erpmotores\beans\MongoClass.class
